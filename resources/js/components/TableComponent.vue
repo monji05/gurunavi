@@ -1,0 +1,12 @@
+<template>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>内容</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</template>

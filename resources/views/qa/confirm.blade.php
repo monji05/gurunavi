@@ -10,7 +10,7 @@
                 {{ Form::label(__('dic/qa.content'), $input['content']) }}
             </div>
             <div>
-            <button class="button submit" type="submit">{{ __('dic/common.submit') }}</button>
+                <button class="button submit" type="submit">{{ __('dic/common.submit') }}</button>
             </div>
             <div>
                 {{ Form::hidden('content') }}
