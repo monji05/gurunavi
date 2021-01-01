@@ -21,7 +21,7 @@ class GurunaviController extends BaseController
         $card = $_POST['card'];
         $wifi = $_POST['wifi'];
         $freeWord = $_POST['freeWord'];
-        $budgetCode = $_POST['budgetCode'];
+        $budgetCode = $_POST['budgetCode'] == "undefined" ? "" : $_POST['budgetCode'];
 
         $client = new GuzzleHttp\Client([
             'base_uri' => $url,

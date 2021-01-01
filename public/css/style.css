@@ -70,13 +70,12 @@
 }
 
 body {
-    /* font-family: var(--font-family-sans-serif); */
-    font-family: "ヒラギノ角ゴシック";
+    font-family: "Lato";
     background-color: rgba(191, 165, 63, 0.09);
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-family-sans-serif);
+    font-family: "Lato";
 
 }
 
@@ -122,6 +121,6 @@ input[type="checkbox"]:checked + .material-icons {
     background-position: center;
 }
 
-input[type="range"] {
+input[type="select"] {
     display: block;
 }

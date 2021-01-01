@@ -20,22 +20,27 @@
                             <i class="material-icons">network_wifi</i>
                             wifiあり
                         </label>
-                        <select name="budgetCode" id="budgetCode" v-model="budgetCode">
-                            <label for="budgetCode" class="form-control">予算</label>
-                            <option value="B009">〜500円</option>
-                            <option value="B010">501～1000円</option>
-                            <option value="B011">1001～1500円</option>
-                            <option value="B001">1501～2000円</option>
-                            <option value="B002">2001～3000円</option>
-                            <option value="B003">3001～4000円</option>
-                            <option value="B008">4001～5000円</option>
-                            <option value="B004">5001～7000円</option>
-                            <option value="B005">7001～10000円</option>
-                            <option value="B006">10001～15000円</option>
-                            <option value="B012">15001～20000円</option>
-                            <option value="B013">20001～30000円</option>
-                            <option value="B014">30001円～</option>
-                        </select>
+                    </div>
+                    <div>
+                        <label for="budgetCode">
+                            予算
+                            <select name="budgetCode" id="budgetCode" v-model="budgetCode">
+                                <option value="">選択しない</option>
+                                <option value="B009">〜500円</option>
+                                <option value="B010">501～1000円</option>
+                                <option value="B011">1001～1500円</option>
+                                <option value="B001">1501～2000円</option>
+                                <option value="B002">2001～3000円</option>
+                                <option value="B003">3001～4000円</option>
+                                <option value="B008">4001～5000円</option>
+                                <option value="B004">5001～7000円</option>
+                                <option value="B005">7001～10000円</option>
+                                <option value="B006">10001～15000円</option>
+                                <option value="B012">15001～20000円</option>
+                                <option value="B013">20001～30000円</option>
+                                <option value="B014">30001円～</option>
+                            </select>
+                        </label>
                     </div>
                     <button type="submit">検索</button>
                 </form>
@@ -46,7 +51,7 @@
             </div>
         </div>
         <div v-show="!loading" v-if="count!=0">
-            <div class="alert alert-primary text-center ml-3 mr-3 mt-3">{{ total }}件ヒットしました</div>
+            <div class="alert alert-primary text-center mr-3 mt-3">{{ total }}件ヒットしました</div>
             <paginate-links
                 for="paginate-storeLists"
                 class="pagination justify-content-center"
@@ -143,7 +148,7 @@ export default {
             total: "",
             loading: false,
             returned: false,
-            budgetCode: this.budgetCode,
+            budgetCode: "",
         }
     },
     methods: {
