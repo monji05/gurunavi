@@ -12,3 +12,6 @@
 Auth::routes();
 
 Route::get("/gurunavi", "Gurunavi\GurunaviController@index")->name('gurunavi.index');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

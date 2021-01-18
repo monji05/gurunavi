@@ -20,6 +20,11 @@
                             <i class="material-icons">network_wifi</i>
                             wifiあり
                         </label>
+                        <label for="privateRoom" class="text-label">
+                            <input type="checkbox" name="privateRoom" id="privateRoom" true-value="1" false-value="0" v-model="privateRoom">
+                            <i class="material-icons">person</i>
+                            個室あり
+                        </label>
                     </div>
                     <div>
                         <label for="budgetCode">
@@ -42,6 +47,60 @@
                             </select>
                         </label>
                     </div>
+                    <div>
+                        <label for="prefName">
+                            都道府県
+                            <select name="prefName" id="prefName" v-model="prefName">
+                                <option value="Z041">北海道</option>
+                                <option value="Z051">青森県</option>
+                                <option value="Z052">岩手県</option>
+                                <option value="Z053">宮城県</option>
+                                <option value="Z054">秋田県</option>
+                                <option value="Z055">山形県</option>
+                                <option value="Z056">福島県</option>
+                                <option value="Z015">茨城県</option>
+                                <option value="Z016">栃木県</option>
+                                <option value="Z017">群馬県</option>
+                                <option value="Z013">埼玉県</option>
+                                <option value="Z014">千葉県</option>
+                                <option value="Z011">東京都</option>
+                                <option value="Z012">神奈川県</option>
+                                <option value="Z061">新潟県</option>
+                                <option value="Z062">富山県</option>
+                                <option value="Z063">石川県</option>
+                                <option value="Z064">福井県</option>
+                                <option value="Z065">山梨県</option>
+                                <option value="Z066">長野県</option>
+                                <option value="Z031">岐阜県</option>
+                                <option value="Z032">静岡県</option>
+                                <option value="Z033">愛知県</option>
+                                <option value="Z034">三重県</option>
+                                <option value="Z021">滋賀県</option>
+                                <option value="Z022">京都府</option>
+                                <option value="Z023">大阪府</option>
+                                <option value="Z024">兵庫県</option>
+                                <option value="Z025">奈良県</option>
+                                <option value="Z026">和歌山県</option>
+                                <option value="Z071">鳥取県</option>
+                                <option value="Z072">島根県</option>
+                                <option value="Z073">岡山県</option>
+                                <option value="Z074">広島県</option>
+                                <option value="Z075">山口県</option>
+                                <option value="Z081">徳島県</option>
+                                <option value="Z082">香川県</option>
+                                <option value="Z083">愛媛県</option>
+                                <option value="Z084">高知県</option>
+                                <option value="Z091">福岡県</option>
+                                <option value="Z092">佐賀県</option>
+                                <option value="Z093">長崎県</option>
+                                <option value="Z094">熊本県</option>
+                                <option value="Z095">大分県</option>
+                                <option value="Z096">宮崎県</option>
+                                <option value="Z097">鹿児島県</option>
+                                <option value="Z098">沖縄県</option>
+                            </select>
+                        </label>
+                    </div>
                     <button type="submit">検索</button>
                 </form>
             </div>
@@ -51,7 +110,6 @@
             </div>
         </div>
         <div v-show="!loading" v-if="count!=0">
-            <div class="alert alert-primary text-center mr-3 mt-3">{{ total }}件ヒットしました</div>
             <paginate-links
                 for="paginate-storeLists"
                 class="pagination justify-content-center"
@@ -127,8 +185,8 @@
             >
             </paginate-links>
         </div>
-        <div v-show="returned" class="alert alert-primary text-center ml-3 mr-3 mt-3">
-            結果なし
+        <div v-show="returned" class="alert text-center ml-3 mr-3 mt-3" v-bind:class="{'alert-primary': countIsZero, 'alert-danger': hasError}">
+            {{ message }}
         </div>
     </div>
 </template>
@@ -149,6 +207,11 @@ export default {
             loading: false,
             returned: false,
             budgetCode: "",
+            message: "",
+            countIsZero: false,
+            hasError: false,
+            privateRoom: "0",
+            prefName: "Z011",
         }
     },
     methods: {
@@ -159,6 +222,8 @@ export default {
             params.append('card', this.card)
             params.append('wifi', this.wifi)
             params.append('budgetCode', this.budgetCode)
+            params.append('privateRoom', this.privateRoom)
+            params.append('prefName', this.prefName)
             $this.loading = true
             axios.post('http://localhost/api/gurunavi', params)
             .then(res => {
@@ -171,9 +236,9 @@ export default {
                     $this.returned = false
                 } else if ($this.count == 0) {
                     $this.returned = true
+                    $this.countIsZero = true
+                    $this.message = "検索結果なし"
                 }
-                //ヒットした検索の総数
-                $this.total = result.results_available
                 //検索結果を初期化
                 $this.storeLists = []
                 for(let shop of shops){
@@ -189,7 +254,14 @@ export default {
                         budget_memo: shop.budget_memo,
                     })
                 }
-            })
+            }).catch(function(error) {
+                if (error.code == 1000 || error.code == 2000 || error.code == 3000) {
+                    $this.returned = true
+                    $this.loading = false
+                    $this.hasError = true
+                    $this.message = error.message
+                }
+            }) 
         },
     },
 

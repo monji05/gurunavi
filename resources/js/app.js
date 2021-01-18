@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router';
-import Gurunavi from "./components/GurunaviSearchComponent";
+import GurunaviSearch from "./components/GurunaviSearchComponent";
 import VuePaginate from "vue-paginate";
 
 /**
@@ -38,7 +38,7 @@ const router = new VueRouter({
         {
             path: '/gurunavi',
             name: 'gurunavi.index',
-            component: Gurunavi
+            component: GurunaviSearch
         },
     ],
 

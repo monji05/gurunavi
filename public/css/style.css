@@ -79,6 +79,8 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
+
+
 .store {
     display:flex;/* flexbox */
     align-items: center; /* 垂直方向 */
@@ -101,10 +103,6 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
 }
 
-.icon-label {
-    margin: 0.5rem auto;
-    display: inline-block;
-}
 
 input:focus::placeholder {
     color: transparent;
@@ -112,6 +110,7 @@ input:focus::placeholder {
 
 input[type="checkbox"] {
     display: none;
+    margin: auto;
 }
 
 input[type="checkbox"]:checked + .material-icons {
